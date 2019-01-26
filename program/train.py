@@ -53,8 +53,7 @@ def run_training(FLAGS):
             for epoch in range(start_epoch, FLAGS.epochs):
                 n = 0
                 #输入的数据集切成多少块
-                n_chunk = len(poems_vector) // FLAGS.batch_size
-                print("n_chunk："+str(n_chunk))
+                #n_chunk = len(poems_vector) // FLAGS.batch_size
                 n_chunk = 50
                 for batch in range(n_chunk):
                     loss, _, _ = sess.run([
