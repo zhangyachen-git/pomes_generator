@@ -64,7 +64,7 @@ def run_training(FLAGS):
                     ], feed_dict={input_data: batches_inputs[n], output_targets: batches_outputs[n]})
                     n += 1
                     print('Epoch: %d, batch: %d, training loss: %.6f' % (epoch, batch, loss))
-                    file.write('Epoch: %d, batch: %d, training loss: %.6f' % (epoch, batch, loss))
+                    file.write('Epoch: %d, batch: %d, training loss: %.6f' % (epoch, batch, loss)+"\n")
                 if epoch % 6 == 0:
                     saver.save(sess, os.path.join(FLAGS.model_dir, FLAGS.model_prefix), global_step=epoch)
         except KeyboardInterrupt:
