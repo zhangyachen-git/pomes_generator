@@ -34,7 +34,7 @@ def rnn_model(model, input_data, output_data, vocab_size, rnn_size=128, num_laye
     elif model == 'gru':
         cell_fun = tf.contrib.rnn.GRUCell
     elif model == 'lstm':
-        cell_fun = tf.contrib.rnn.BasicLSTMCell
+        cell_fun = tf.nn.rnn_cell.LSTMCell
  
     cell = cell_fun(rnn_size, state_is_tuple=True)
      # 构建堆叠rnn，这里选用两层的rnn

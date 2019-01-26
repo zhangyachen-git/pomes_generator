@@ -14,7 +14,7 @@ import tensorflow as tf
 #os.path.abspath(path)：返回path规范化的绝对路径。 
 #epoch：1个epoch等于使用训练集中的全部样本训练一次  
 #运行程序设置
-tf.app.flags.DEFINE_string('run_flag', '0', 'run train flag: 0;run test flag:1')
+tf.app.flags.DEFINE_string('run_flag', '1', 'run train flag: 0;run test flag:1')
 #文件信息
 tf.app.flags.DEFINE_string('model_dir', os.path.abspath('data/output/model'), 'model save path.')
 tf.app.flags.DEFINE_string('file_path', os.path.abspath('data/original_data/poetry.txt'), 'file name of poems.')

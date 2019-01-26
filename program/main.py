@@ -21,4 +21,4 @@ if __name__ == '__main__':
     else:
         begin_char = input('## please input the first character:')
         poem= test.gen_poem(FLAGS,begin_char)
-        test.pretty_print_poem(poem_=poem)
+        test.pretty_print_poem(poem)

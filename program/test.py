@@ -34,10 +34,11 @@ def to_word(predict, vocabs):
  
  
 def gen_poem(FLAGS,begin_word):
+    batch_size = 1
     print('## loading corpus from %s' % FLAGS.model_dir)
     poems_vector, word_int_map, vocabularies = process_poems(FLAGS.file_path)
  
-    input_data = tf.placeholder(tf.int32, [FLAGS.batch_size, None])
+    input_data = tf.placeholder(tf.int32, [batch_size, None])
  
     end_points = rnn_model(model='lstm', input_data=input_data, output_data=None, vocab_size=len(
         vocabularies), rnn_size=FLAGS.rnn_size, num_layers=FLAGS.num_layers, batch_size=FLAGS.batch_size, learning_rate=FLAGS.learning_rate)
@@ -62,11 +63,11 @@ def gen_poem(FLAGS,begin_word):
             word = begin_word
         else:
             word = to_word(predict, vocabularies)
-        poem_ = ''
+        poem = ''
  
         i = 0
         while word != end_token:
-            poem_ += word
+            poem+= word
             i += 1
             #生成的诗的字数不超过24
             if i >= 24:
@@ -79,11 +80,11 @@ def gen_poem(FLAGS,begin_word):
                                              feed_dict={input_data: x, end_points['initial_state']: last_state})
             word = to_word(predict, vocabularies)
  
-        return poem_
+        return poem
  
  
-def pretty_print_poem(poem_):
-    poem_sentences = poem_.split('。')
+def pretty_print_poem(poem):
+    poem_sentences = poem.split('。')
     for s in poem_sentences:
         if s != '' and len(s) > 10:
             print(s + '。')
