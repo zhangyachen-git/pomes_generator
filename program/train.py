@@ -36,6 +36,8 @@ def run_training(FLAGS):
     #创建一个包含几个操作的op结点,当这个op结点运行完成，所有作为input的ops都被运行完成，这个操作没有返回值
     init_op = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())
     with tf.Session() as sess:
+        #写入tensorflow日志
+        writer = tf.summary.FileWriter(FLAGS.tensorflow_logs, sess.graph)
         #运行以上的节点
         sess.run(init_op)
         start_epoch = 0
@@ -46,13 +48,14 @@ def run_training(FLAGS):
             print("## restore from the checkpoint {0}".format(checkpoint))
             start_epoch += int(checkpoint.split('-')[-1])
         print('## start training...')
-        file = open(FLAGS.log_file,'a')
+        file = open(FLAGS.log_path,'a')
         try:
             for epoch in range(start_epoch, FLAGS.epochs):
                 n = 0
                 #输入的数据集切成多少块
                 n_chunk = len(poems_vector) // FLAGS.batch_size
-                print("n_chunk："+n_chunk)
+                print("n_chunk："+str(n_chunk))
+                n_chunk = 50
                 for batch in range(n_chunk):
                     loss, _, _ = sess.run([
                         end_points['total_loss'],
@@ -69,5 +72,7 @@ def run_training(FLAGS):
             print('## Interrupt manually, try saving checkpoint for now...')
             saver.save(sess, os.path.join(FLAGS.model_dir, FLAGS.model_prefix), global_step=epoch)
             print('## Last epoch were saved, next time will start from epoch {}.'.format(epoch))
+            writer.close()
             file.close()
-        file.close()
+    file.close()
+    writer.close()

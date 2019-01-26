@@ -20,5 +20,5 @@ if __name__ == '__main__':
         train.run_training(FLAGS)           
     else:
         begin_char = input('## please input the first character:')
-        test.gen_poem(FLAGS,begin_char)
+        poem= test.gen_poem(FLAGS,begin_char)
         test.pretty_print_poem(poem_=poem)

@@ -16,9 +16,12 @@ import tensorflow as tf
 #运行程序设置
 tf.app.flags.DEFINE_string('run_flag', '0', 'run train flag: 0;run test flag:1')
 #文件信息
-tf.app.flags.DEFINE_string('model_dir', os.path.abspath('./data/output/model'), 'model save path.')
-tf.app.flags.DEFINE_string('file_path', os.path.abspath('./data/original_data/poetry.txt'), 'file name of poems.')
+tf.app.flags.DEFINE_string('model_dir', os.path.abspath('data/output/model'), 'model save path.')
+tf.app.flags.DEFINE_string('file_path', os.path.abspath('data/original_data/poetry.txt'), 'file name of poems.')
+tf.app.flags.DEFINE_string('log_path', os.path.abspath('project_doumentation/train_log/train_log.txt'), 'file name of log.')
+tf.app.flags.DEFINE_string('tensorflow_logs', os.path.abspath('project_doumentation/train_log/tensorflow_logs'), 'file name of log.')
 tf.app.flags.DEFINE_string('model_prefix', 'poems', 'model save prefix.')
+
 #参数信息
 tf.app.flags.DEFINE_integer('batch_size', 64, 'batch size.')
 tf.app.flags.DEFINE_float('learning_rate', 0.01, 'learning rate.')
