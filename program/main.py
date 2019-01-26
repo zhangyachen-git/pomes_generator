@@ -15,7 +15,7 @@ from config import FLAGS
 
  
 if __name__ == '__main__':
-    print(FLAGS.run_flag)
+
     if FLAGS.run_flag == "0":
         train.run_training(FLAGS)           
     else:
