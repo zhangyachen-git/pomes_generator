@@ -14,7 +14,7 @@ import tensorflow as tf
 from model import rnn_model
 import sys
 sys.path.append("program/tool")
-from deal_date import process_poems
+from deal_data import process_poems
 from until import generate_batch
  
  
@@ -46,11 +46,13 @@ def run_training(FLAGS):
             print("## restore from the checkpoint {0}".format(checkpoint))
             start_epoch += int(checkpoint.split('-')[-1])
         print('## start training...')
+        file = open(FLAGS.log_file,'a')
         try:
             for epoch in range(start_epoch, FLAGS.epochs):
                 n = 0
                 #输入的数据集切成多少块
                 n_chunk = len(poems_vector) // FLAGS.batch_size
+                print("n_chunk："+n_chunk)
                 for batch in range(n_chunk):
                     loss, _, _ = sess.run([
                         end_points['total_loss'],
@@ -59,6 +61,7 @@ def run_training(FLAGS):
                     ], feed_dict={input_data: batches_inputs[n], output_targets: batches_outputs[n]})
                     n += 1
                     print('Epoch: %d, batch: %d, training loss: %.6f' % (epoch, batch, loss))
+                    file.write('Epoch: %d, batch: %d, training loss: %.6f' % (epoch, batch, loss))
                 if epoch % 6 == 0:
                     saver.save(sess, os.path.join(FLAGS.model_dir, FLAGS.model_prefix), global_step=epoch)
         except KeyboardInterrupt:
@@ -66,11 +69,5 @@ def run_training(FLAGS):
             print('## Interrupt manually, try saving checkpoint for now...')
             saver.save(sess, os.path.join(FLAGS.model_dir, FLAGS.model_prefix), global_step=epoch)
             print('## Last epoch were saved, next time will start from epoch {}.'.format(epoch))
- 
- 
-def main(_):
-    run_training()
- 
- 
-if __name__ == '__main__':
-    tf.app.run()
+            file.close()
+        file.close()

@@ -12,7 +12,7 @@ import tensorflow as tf
 from model import rnn_model
 import sys
 sys.path.append("program/tool")
-from until import process_poems
+from deal_data import process_poems
 
  
 start_token = 'B'
@@ -34,11 +34,10 @@ def to_word(predict, vocabs):
  
  
 def gen_poem(FLAGS,begin_word):
-    batch_size = 1
     print('## loading corpus from %s' % FLAGS.model_dir)
     poems_vector, word_int_map, vocabularies = process_poems(FLAGS.file_path)
  
-    input_data = tf.placeholder(tf.int32, [batch_size, None])
+    input_data = tf.placeholder(tf.int32, [FLAGS.batch_size, None])
  
     end_points = rnn_model(model='lstm', input_data=input_data, output_data=None, vocab_size=len(
         vocabularies), rnn_size=FLAGS.rnn_size, num_layers=FLAGS.num_layers, batch_size=FLAGS.batch_size, learning_rate=FLAGS.learning_rate)
@@ -48,7 +47,7 @@ def gen_poem(FLAGS,begin_word):
     with tf.Session() as sess:
         sess.run(init_op)
  
-        checkpoint = tf.train.latest_checkpoint(model_dir)
+        checkpoint = tf.train.latest_checkpoint(FLAGS.model_dir)
         saver.restore(sess, checkpoint)
  
         x = np.array([list(map(word_int_map.get, start_token))])

@@ -7,6 +7,9 @@
 #@Contact :   aachen_z@163.com
 '''
 # here put the import lib
+import numpy as np
+
+
 def generate_batch(batch_size, poems_vec, word_to_int):
     #总共切多少块,batch_size如果取64，取整数原则34646//64=541块
     n_chunk = len(poems_vec) // batch_size
@@ -37,3 +40,11 @@ def generate_batch(batch_size, poems_vec, word_to_int):
         x_batches.append(x_data)
         y_batches.append(y_data)
     return x_batches, y_batches
+
+
+# 数据写入文件
+def log_save(filename, data):
+    file = open(filename, 'a')
+    file.write(str(data))
+    file.close()
+    print(filename + "文件保存成功")
