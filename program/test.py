@@ -63,11 +63,11 @@ def gen_poem(FLAGS,begin_word):
             word = begin_word
         else:
             word = to_word(predict, vocabularies)
-        poem = ''
+        poem_ = ''
  
         i = 0
         while word != end_token:
-            poem+= word
+            poem_+= word
             i += 1
             #生成的诗的字数不超过24
             if i >= 24:
@@ -80,11 +80,11 @@ def gen_poem(FLAGS,begin_word):
                                              feed_dict={input_data: x, end_points['initial_state']: last_state})
             word = to_word(predict, vocabularies)
  
-        return poem
+        return poem_
  
  
-def pretty_print_poem(poem):
-    poem_sentences = poem.split('。')
+def pretty_print_poem(poem_):
+    poem_sentences = poem_.split('。')
     for s in poem_sentences:
         if s != '' and len(s) > 10:
             print(s + '。')

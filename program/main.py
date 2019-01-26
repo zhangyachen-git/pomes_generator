@@ -19,6 +19,6 @@ if __name__ == '__main__':
     if FLAGS.run_flag == "0":
         train.run_training(FLAGS)           
     else:
-        begin_char = input('## please input the first character:')
+        begin_char = input('## 请输入第一个字:')
         poem= test.gen_poem(FLAGS,begin_char)
-        test.pretty_print_poem(poem)
+        test.pretty_print_poem(poem_=poem)
