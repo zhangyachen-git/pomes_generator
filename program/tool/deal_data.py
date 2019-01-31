@@ -52,3 +52,7 @@ def process_poems(file_name):
     poems_vector = [list(map(lambda word: word_int_map.get(word, len(words)), poem)) for poem in poems]
  
     return poems_vector, word_int_map, words
+
+
+file_name = 'data/original_data/poetry.txt'
+poems_vector, word_int_map, words = process_poems(file_name)
