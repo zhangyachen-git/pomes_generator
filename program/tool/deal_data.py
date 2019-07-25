@@ -34,6 +34,7 @@ def process_poems(file_name):
                 if len(content) < 5 or len(content) > 79:  # 内容少于5个字或大于79个字为异常诗需要剔除，跳出本次循环
                     continue
                 content = start_token + content + end_token
+                print(content)
                 poems.append(content)
             except ValueError as e:
                 pass
@@ -56,5 +57,8 @@ def process_poems(file_name):
 
 
 if __name__ == "__main__":
-    file_name = 'data/original_data/poetry.txt'
+    file_name = 'F:/Work Spaces/Python/pomes_generator/trunk/data/original_data/poetry.txt'
     poems_vector, word_int_map, words = process_poems(file_name)
+    print(poems_vector)
+    print(word_int_map)
+    print(words)
