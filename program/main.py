@@ -9,16 +9,13 @@
 # here put the import lib
 import train
 import test
-import sys
-sys.path.append("program/tool")
-from config import FLAGS
+from tool.config import FLAGS
 
- 
 if __name__ == '__main__':
 
     if FLAGS.run_flag == "0":
-        train.run_training(FLAGS)           
+        train.run_training(FLAGS)
     else:
         begin_char = input('## 请输入第一个字:')
-        poem= test.gen_poem(FLAGS,begin_char)
+        poem = test.gen_poem(FLAGS, begin_char)
         test.pretty_print_poem(poem_=poem)
